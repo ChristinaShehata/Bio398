@@ -29,7 +29,7 @@ for species in speciesList:
 	for geneName,orthogroupDict in orthofinderDict.items():
 		geneNameList.append(geneName)
 		for geneList in orthogroupDict.values():
-			sepList.append(list(filter(lambda x: species in x,geneList))) #do something
+			sepList.append(list(filter(lambda x: species in x,geneList)))
 		name_listDict[geneName] = sepList
 		break
 

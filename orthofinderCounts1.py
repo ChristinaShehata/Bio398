@@ -29,9 +29,6 @@ for species in speciesList:
 	for geneName,orthogroupDict in orthofinderDict.items():
 		geneNameList.append(geneName)
 		for geneList in orthogroupDict.values():
-			#if species == "apple":
-				#sepList.append(list(filter(lambda x: species in x,geneList))) #groups genes by species, but how to group by gene name?
-			#if species == "pineapple"
 			sepList.append(list(filter(lambda x: species in x,geneList))) #do something
 		name_listDict[geneName] = sepList
 		break

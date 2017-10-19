@@ -1,1 +1,1 @@
-Info to come
+Bio 398 - Fall 2017

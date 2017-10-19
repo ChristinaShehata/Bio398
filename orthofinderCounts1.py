@@ -25,13 +25,13 @@ species_lengthDict = {}
 lenList = []
 countDict = {}
 
-for species in speciesList:
-	for geneName,orthogroupDict in orthofinderDict.items():
-		geneNameList.append(geneName)
-		for geneList in orthogroupDict.values():
+for geneName,orthogroupDict in orthofinderDict.items():
+	geneNameList.append(geneName)
+	for geneList in orthogroupDict.values():
+		for species in speciesList:
 			sepList.append(list(filter(lambda x: species in x,geneList)))
 		name_listDict[geneName] = sepList
-		break
+		#break
 
 #print(name_listDict)
 

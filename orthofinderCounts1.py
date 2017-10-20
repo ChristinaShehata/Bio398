@@ -30,10 +30,10 @@ for geneName,orthogroupDict in orthofinderDict.items():
 	for geneList in orthogroupDict.values():
 		for species in speciesList:
 			sepList.append(list(filter(lambda x: species in x,geneList)))
-		name_listDict[geneName] = sepList
+	`name_listDict[geneName] = sepList
 		#break
 
-#print(name_listDict)
+print(name_listDict)
 
 for value in name_listDict.values():
 	for lst in value:

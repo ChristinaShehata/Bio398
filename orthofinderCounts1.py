@@ -30,7 +30,7 @@ for geneName,orthogroupDict in orthofinderDict.items():
 
 name_stringDict = dict(zip(geneNameList,stringList))
 
-for value in newDict1.values():
+for value in name_stringDict.values():
 	for species in speciesList:
 		countDict[species] = value.count(species)
 

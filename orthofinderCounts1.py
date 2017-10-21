@@ -41,7 +41,7 @@ for name,string in name_stringDict.items():
 			species_countDict[species] = string.count(species)
 		else:
 			species_countDict["apple"] = string.count("apple") - string.count("pineapple")
-	#print(name)						#printing them separately works
+	#print(name)								#printing them separately works
 	#print(species_countDict)
 	countDict[name] = dict(species_countDict)	#does this work?
 	

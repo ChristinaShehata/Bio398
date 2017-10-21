@@ -21,8 +21,8 @@ with open(sys.argv[2], "r") as f:
 geneNameList = []
 stringList = []
 name_stringDict = {}
-dictList = []
-countDict={}
+species_countDict={}
+countDict = {}
 
 for geneName,orthogroupDict in orthofinderDict.items():
 	geneNameList.append(geneName)
@@ -33,13 +33,18 @@ name_stringDict = dict(zip(geneNameList,stringList))
 
 #print(name_stringDict)
 
-for string in name_stringDict.values():
+for name,string in name_stringDict.items():
 	for species in speciesList:
+		#x = string.partition(species)
+		#print(x)
 		if species != "apple":
-			countDict[species] = string.count(species) ##only gives counts for last gene
+			species_countDict[species] = string.count(species)
 		else:
-			countDict['apple'] = string.count("apple") - string.count('pineapple')
-		
+			species_countDict["apple"] = string.count("apple") - string.count("pineapple")
+	#print(name)						#printing them separately works
+	#print(species_countDict)
+	countDict[name] = dict(species_countDict)	#does this work?
+	
 print(countDict)
 
 with open(sys.argv[3], "w") as f:

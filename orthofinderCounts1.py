@@ -22,6 +22,7 @@ geneNameList = []
 stringList = []
 name_stringDict = {}
 countDict = {}
+dictList = []
 
 for geneName,orthogroupDict in orthofinderDict.items():
 	geneNameList.append(geneName)
@@ -33,8 +34,11 @@ name_stringDict = dict(zip(geneNameList,stringList))
 for value in name_stringDict.values():
 	for species in speciesList:
 		countDict[species] = value.count(species)
+		dictList.append(countDict)
 
-print(countDict) #works only for first gene
+countDict = dict(zip(geneNameList,dictList))
+
+print(countDict)
 
 with open(sys.argv[3], "w") as f:
 	json.dump(countDict, f)

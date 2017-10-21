@@ -22,7 +22,7 @@ geneNameList = []
 stringList = []
 name_stringDict = {}
 dictList = []
-countDict = {}
+countDict={}
 
 for geneName,orthogroupDict in orthofinderDict.items():
 	geneNameList.append(geneName)
@@ -31,13 +31,15 @@ for geneName,orthogroupDict in orthofinderDict.items():
 
 name_stringDict = dict(zip(geneNameList,stringList))
 
-for value in name_stringDict.values():
+#print(name_stringDict)
+
+for string in name_stringDict.values():
 	for species in speciesList:
-		countDict[species] = value.count(species)
-		dictList.append(countDict)
-
-countDict = dict(zip(geneNameList,dictList))
-
+		if species != "apple":
+			countDict[species] = string.count(species) ##only gives counts for last gene
+		else:
+			countDict['apple'] = string.count("apple") - string.count('pineapple')
+		
 print(countDict)
 
 with open(sys.argv[3], "w") as f:

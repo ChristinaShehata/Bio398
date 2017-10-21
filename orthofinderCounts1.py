@@ -21,8 +21,8 @@ with open(sys.argv[2], "r") as f:
 geneNameList = []
 stringList = []
 name_stringDict = {}
-countDict = {}
 dictList = []
+countDict = {}
 
 for geneName,orthogroupDict in orthofinderDict.items():
 	geneNameList.append(geneName)
@@ -41,7 +41,7 @@ countDict = dict(zip(geneNameList,dictList))
 print(countDict)
 
 with open(sys.argv[3], "w") as f:
-	json.dump(countDict, f)
+	f.write(json.dumps(countDict))
 
 
 

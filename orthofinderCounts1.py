@@ -35,14 +35,10 @@ name_stringDict = dict(zip(geneNameList,stringList))
 
 for name,string in name_stringDict.items():
 	for species in speciesList:
-		#x = string.partition(species)
-		#print(x)
 		if species != "apple":
 			species_countDict[species] = string.count(species)
 		else:
 			species_countDict["apple"] = string.count("apple") - string.count("pineapple")
-	#print(name)								#printing them separately works
-	#print(species_countDict)
 	countDict[name] = dict(species_countDict)	#does this work?
 	
 print(countDict)

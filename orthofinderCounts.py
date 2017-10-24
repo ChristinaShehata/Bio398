@@ -32,7 +32,7 @@ def make_count_dict(speciesList):
 	for key,lst in name_speciesDict.items():
 		for species in speciesList:
 			species_countDict[species] = lst.count(species)
-			countDict[key] = dict(species_countDict)s
+			countDict[key] = dict(species_countDict)
 	return countDict
 
 def main():

@@ -1,50 +1,47 @@
-import json
 import sys
+import json
+import re
 
 #######################################################################################
-##This script identifies the number of genes from each species in each orthogroup
-###
-##sys.argv[1] is species list
-##sys.argv[2] is the JSON dictionary of the OrthoFinder Results
-##sys.argv[3] is the JSON dictionary with the number of species in each orthogroup
+## This script identifies the number of genes from each species in each orthogroup
+##
+## sys.argv[1] is species list
+## sys.argv[2] is the JSON dictionary of the OrthoFinder Results
+## sys.argv[3] is the JSON dictionary with the number of species in each orthogroup
 #######################################################################################
 
-with open(sys.argv[1], "r") as f:
-	speciesList = [line.split("\t")[0] for line in f.readlines()]
-	#print(speciesList)
+def make_species_list():
+	with open(sys.argv[1], "r") as f:
+		speciesList = [line.split("\t")[0] for line in f.readlines()]
+	return speciesList
 
-with open(sys.argv[2], "r") as f:
-	for line in f:
-		orthofinderDict=json.loads(line)
-		#print(orthofinderDict)
+def make_count_dict(speciesList):
+	with open(sys.argv[2], "r") as f:
+		for line in f:
+			orthofinderDict = json.loads(line)
 
-geneNameList = []
-stringList = []
-name_stringDict = {}
-species_countDict={}
-countDict = {}
+	name_speciesDict = {}
+	species_countDict = {}
+	countDict = {}
 
-for geneName,orthogroupDict in orthofinderDict.items():
-	geneNameList.append(geneName)
-	for geneList in orthogroupDict.values():
-		stringList.append("".join(geneList))
+	for geneName,orthogroupDict in orthofinderDict.items():
+		for geneList in orthogroupDict.values():
+			species_list = [re.sub("\d", "", i) for i in geneList]
+			name_speciesDict[geneName] = species_list
 
-name_stringDict = dict(zip(geneNameList,stringList))
+	for key,lst in name_speciesDict.items():
+		for species in speciesList:
+			species_countDict[species] = lst.count(species)
+			countDict[key] = dict(species_countDict)s
+	return countDict
 
-#print(name_stringDict)
-
-for name,string in name_stringDict.items():
-	for species in speciesList:
-		if species != "apple":
-			species_countDict[species] = string.count(species)
-		else:
-			species_countDict["apple"] = string.count("apple") - string.count("pineapple")
-	countDict[name] = dict(species_countDict)
+def main():
+	speciesLst = make_species_list()
+	countDict = make_count_dict(speciesLst)
+	with open(sys.argv[3], "w") as f:
+		f.write(json.dumps(countDict))
 	
-print(countDict)
-
-with open(sys.argv[3], "w") as f:
-	f.write(json.dumps(countDict))
+main()
 
 
 

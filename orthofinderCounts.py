@@ -1,6 +1,7 @@
 import sys
 import json
 import re
+import csv
 
 #######################################################################################
 ## This script identifies the number of genes from each species in each orthogroup
@@ -32,6 +33,7 @@ def make_count_dict(speciesList):
 	for key,lst in name_speciesDict.items():
 		for species in speciesList:
 			species_countDict[species] = lst.count(species)
+			species_countDict["total"] = len(lst)
 			countDict[key] = dict(species_countDict)
 	return countDict
 

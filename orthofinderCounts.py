@@ -8,7 +8,7 @@ import csv
 ##
 ## sys.argv[1] is species list
 ## sys.argv[2] is the JSON dictionary of the OrthoFinder Results
-## sys.argv[3] is the JSON dictionary with the number of species in each orthogroup
+## sys.argv[3] is the csv file with the number of species in each orthogroup
 #######################################################################################
 
 def make_species_list():
@@ -25,12 +25,12 @@ def make_count_dict(speciesList):
 	species_countDict = {}
 	countDict = {}
 
-	for geneName,orthogroupDict in orthofinderDict.items():
+	for geneName, orthogroupDict in orthofinderDict.items():
 		for geneList in orthogroupDict.values():
 			species_list = [re.sub("\d", "", i) for i in geneList]
 			name_speciesDict[geneName] = species_list
 
-	for key,lst in name_speciesDict.items():
+	for key, lst in name_speciesDict.items():
 		for species in speciesList:
 			species_countDict[species] = lst.count(species)
 			species_countDict["total"] = len(lst)
@@ -41,7 +41,12 @@ def main():
 	speciesLst = make_species_list()
 	countDict = make_count_dict(speciesLst)
 	with open(sys.argv[3], "w") as f:
-		f.write(json.dumps(countDict))
+		gene = countDict.keys()
+		for dict in countDict.values():
+			writer = csv.DictWriter(f, fieldnames=dict.keys())	
+		writer.writeheader()
+		for dict in countDict.values():
+			writer.writerow(dict) ##Now just add column of gene Names 
 	
 main()
 

@@ -34,6 +34,7 @@ def make_count_dict(speciesList):
 		for species in speciesList:
 			species_countDict[species] = lst.count(species)
 			species_countDict["total"] = len(lst)
+			species_countDict["gene"] = key
 			countDict[key] = dict(species_countDict)
 	return countDict
 
@@ -46,7 +47,7 @@ def main():
 			writer = csv.DictWriter(f, fieldnames=dict.keys())	
 		writer.writeheader()
 		for dict in countDict.values():
-			writer.writerow(dict) ##Now just add column of gene Names 
+			writer.writerow(dict)
 	
 main()
 

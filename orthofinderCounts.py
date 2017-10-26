@@ -43,7 +43,6 @@ def main():
 	speciesLst = make_species_list()
 	countDict = make_count_dict(speciesLst)
 	with open(sys.argv[3], "w") as f:
-		gene = countDict.keys()
 		for dict in countDict.values():
 			writer = csv.DictWriter(f, fieldnames=dict.keys())	
 		writer.writeheader()
@@ -51,9 +50,3 @@ def main():
 			writer.writerow(dict)
 	
 main()
-
-
-
-
-
-

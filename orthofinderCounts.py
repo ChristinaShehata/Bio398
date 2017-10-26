@@ -26,18 +26,19 @@ def make_count_dict(speciesList):
 	countDict = {}
 
 	for geneName, orthogroupDict in orthofinderDict.items():
-		for geneList in orthogroupDict.values():
-			species_list = [re.sub("\d", "", i) for i in geneList]
-			name_speciesDict[geneName] = species_list
+		for orthoNum, geneList in orthogroupDict.items():
+			species_list=[re.sub("\d", "", i) for i in geneList]
+			name_speciesDict[(geneName, orthoNum)] = species_list
 
 	for key, lst in name_speciesDict.items():
 		for species in speciesList:
 			species_countDict[species] = lst.count(species)
 			species_countDict["total"] = len(lst)
-			species_countDict["gene"] = key
-			countDict[key] = dict(species_countDict)
+			species_countDict["gene"] = key[0]
+			species_countDict["orthogroup #"] = key[1]
+			countDict[key[0]] = dict(species_countDict)
 	return countDict
-
+	
 def main():
 	speciesLst = make_species_list()
 	countDict = make_count_dict(speciesLst)
